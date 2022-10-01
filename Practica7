@@ -1,0 +1,50 @@
+class Persona:
+    def __init__(self, nombre, edad, CURP):
+        self.__nombre = nombre
+        self.__edad = edad
+        self.__CURP = CURP
+    
+    @property
+    def nombre(self):
+        return self.__nombre
+    @nombre.setter
+    def nombre(self, nombre):
+        if nombre in self.__nombre:
+            self.__nombre = nombre
+        else:
+            print(f'{nombre} No es un nombre valido')
+
+    @property
+    def edad(self):
+        return self.__edad
+    @edad.setter
+    def edad(self, edad):
+        if edad in self.__edad:
+            self.__edad = edad
+        else:
+            print(f'{edad} No valido')
+
+    @property
+    def CURP(self):
+        return self.__CURP
+    @CURP.setter
+    def CURP(self, CURP):
+        if CURP in self.__CURP:
+            self.__CURP = CURP
+        else:
+            print(f'{CURP} no existe')
+
+    def mostrar(self):
+        return print(f'El usuario se llama {self.__nombre}, tiene {self.__edad} años, y su CURP es {self.__CURP}')
+        
+    def esMayorDeEdad(self):
+        if self.__edad <= 18:
+            return True
+        else:
+            return False
+usuario = Persona('Isa',15, 'MLEKFG546')
+
+print(usuario.nombre)
+print(usuario.edad)
+print(usuario.CURP)
+usuario.nombre = 'Jazmin'
