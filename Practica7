@@ -77,16 +77,21 @@ class Cuenta:
     def cantidad(self, cantidad):
         self.__cantidad = cantidad
     
-    def total_cantidad(self):
-        total = 0
-        return total
+    # def total_cantidad(self):
+    #     total = 0
+    #     return total
 
     def ingresar(self):
-        while self.__cantidad > 0:
-            self.__cantidad = float(input('Cantidad invalida, intente de nuevo: \n'))
+        nuevo_monto = 0
+        if nuevo_monto < 0:
+            print(f"Su cuenta sigue siendo: {self.__cantidad}")
         else:
-            self.cantidad
-            
+            nuevo_monto = float(input('Cuantó ingresará?: \n'))
+        return self.__cantidad + nuevo_monto
+
+    def retirar(self):
+        ahorrado = input(float("Cuánto deseas retirar: "))
+        return self.__cantidad - ahorrado
 
     def mostrar(self):
-        return "Titular:" (self.__titular) + "- cantidad: -" (str(self.__cantidad))
+        return "Titular:" (self.__titular) + "- cantidad: " (str(self.__cantidad))
