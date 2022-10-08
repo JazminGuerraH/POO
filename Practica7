@@ -1,4 +1,3 @@
-print("Ejercicio1😎")
 class Persona:
     def __init__(self, nombre="", edad=0, dni="")  -> None:
         self.__nombre = nombre
@@ -26,7 +25,7 @@ class Persona:
     
     #metodo para validar que el dni tenga al menos 18 caracteres
     def validar_dni(self):
-        while len(self.__dni) != 18:
+        while len(self.__dni) >= 2:
             self.__dni = input('CURP incorrecta, ingresa una de almenos 18 caracteres: ')
         else:
             print('CURP VALIDA')
@@ -55,47 +54,87 @@ persona1.edad = int(input('Ingresa tu edad por favor: '))
 
 print(persona1.mostrar())
 
-print("Ejercicio2😎")
-class Cuenta:
-    def __init__(self, titular="", cantidad=5000) -> None:
+////////
+
+from persona import Persona
+class Cuenta (Persona):
+    def __init__(self, titular = Persona, cantidad = 0.00):
         self.__titular = titular
         self.__cantidad = cantidad
-    
+
     @property
     def titular(self):
         return self.__titular
-    
+
     @property
     def cantidad(self):
         return self.__cantidad
-    
-    def ingresar(self, nuevo_monto):
-        nuevo_monto=0
-        if nuevo_monto < 0:
-            print(f"Su cuenta sigue siendo: {self.__cantidad}")
+
+    def obtener(self):
+        self.__cantidad = float(input("Ingrese una cantidad: "))
+        if self.__cantidad > 0:
+            print("Cantidad Correcta")
         else:
-            self.__cantidad += nuevo_monto
-
-    def retirar(self, nuevo_monto):
-        nuevo_monto = self.__cantidad - nuevo_monto
-
-    def mostrar(self):
-        return "Titular: "+self.__titular+ " Cantidad: "+str(self.__cantidad)
-
+            print("Cantidad invalida")
+    
     @titular.setter
     def titular(self, titular):
         self.__titular = titular
-    
+
     @cantidad.setter
-    def cantidad(self, cantidad):
+    def cantidad(self,cantidad):
         self.__cantidad = cantidad
-        self.cantidad()
+        # self.obtener()
 
+    def mostrar (self):
+        print(f'Bienvenido {self.titular}, su cantidad es de {self.cantidad}')
 
-           
+    def ingresar (self, cantidad):
+            if cantidad > 0:
+                self.__cantidad += cantidad
+            # print(f'Tu saldo sigue siendo: {self.__cantidad}')
+    @cantidad.setter
+    def retirar(self,cantidad):
+            if cantidad > 0:
+                self.__cantidad -= cantidad
+            print(f'su nuevo saldo es de: {self.__cantidad}')
+   
+
 cuenta1 = Cuenta()
-cuenta1.titular = input("ingresa el nombre del Titular: ")
-cuenta1.ingresar = float(input("Cuánto a ingresar: "))
-cuenta1.retirar = float(input("Cuánto a retirar?: "))
-
+cuenta1.titular = input("Ingresa el cliente: ")
+cuenta1.cantidad = float(input("Ingresa cantidad: "))
 print(cuenta1.mostrar())
+cuenta1.retirar = float(input("Cuanto vas a retirar?: "))
+
+///////
+
+from cuenta import Cuenta
+
+class Cuentajoven (Cuenta):
+    def __init__(self, titular, cantidad, bonificacion = 0):
+        super().__init__(titular, cantidad)
+        self.__bonificacion = bonificacion
+
+    @property
+    def bonificacion (self):
+        return self.__bonificacion
+    
+    @bonificacion.setter
+    def bonificacion(self, bonificacion):
+        self.__bonificacion = bonificacion
+
+    def titularvalido (self):
+        return  self.titular.edad > 17 and self.titular.edad < 26
+
+    def retirar (self, nuevacantidad):
+        if self.titularvalido():
+            super().retirarCantidad(nuevacantidad)
+    
+    def mostrar (self):
+        return "Bienvenido"+self.titular+",su bonificacion es de "+str(self.bonificacion)+"%"
+    
+joven = Cuentajoven("",0)
+joven.titular = input("Cual es tu cuenta: ")
+joven.bonificacion = float(input("Bonificación deseada -> "))
+joven.retirarCantidad = float(input("cantidad a retirar: "))
+print(joven.mostrar())
