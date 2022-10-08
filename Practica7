@@ -68,6 +68,19 @@ class Cuenta:
     @property
     def cantidad(self):
         return self.__cantidad
+    
+    def ingresar(self, nuevo_monto):
+        nuevo_monto=0
+        if nuevo_monto < 0:
+            print(f"Su cuenta sigue siendo: {self.__cantidad}")
+        else:
+            self.__cantidad += nuevo_monto
+
+    def retirar(self, nuevo_monto):
+        nuevo_monto = self.__cantidad - nuevo_monto
+
+    def mostrar(self):
+        return "Titular: "+self.__titular+ " Cantidad: "+str(self.__cantidad)
 
     @titular.setter
     def titular(self, titular):
@@ -76,22 +89,13 @@ class Cuenta:
     @cantidad.setter
     def cantidad(self, cantidad):
         self.__cantidad = cantidad
-    
-    # def total_cantidad(self):
-    #     total = 0
-    #     return total
+        self.cantidad()
 
-    def ingresar(self):
-        nuevo_monto = 0
-        if nuevo_monto < 0:
-            print(f"Su cuenta sigue siendo: {self.__cantidad}")
-        else:
-            nuevo_monto = float(input('Cuantó ingresará?: \n'))
-        return self.__cantidad + nuevo_monto
 
-    def retirar(self):
-        ahorrado = input(float("Cuánto deseas retirar: "))
-        return self.__cantidad - ahorrado
+           
+cuenta1 = Cuenta()
+cuenta1.titular = input("ingresa el nombre del Titular: ")
+cuenta1.ingresar = float(input("Cuánto a ingresar: "))
+cuenta1.retirar = float(input("Cuánto a retirar?: "))
 
-    def mostrar(self):
-        return "Titular:" (self.__titular) + "- cantidad: " (str(self.__cantidad))
+print(cuenta1.mostrar())
